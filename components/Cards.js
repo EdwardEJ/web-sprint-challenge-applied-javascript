@@ -44,6 +44,11 @@ function cardMaker(articleObj) {
       headLine.textContent = key.headline
       img.src = key.authorPhoto
       authorName.textContent = `By ${key.authorName}`
+
+      card.addEventListener('click', (e) => {
+        console.log(key.headline)
+        event.stopImmediatePropagation()
+      })
     })
   })
 
@@ -55,12 +60,13 @@ function cardMaker(articleObj) {
   card.appendChild(headLine)
   card.appendChild(author)
   author.appendChild(imgContainer)
-
   imgContainer.appendChild(img)
   author.appendChild(authorName)
 
   const cardcontainer = document.querySelector('.cards-container')
   cardcontainer.appendChild(card)
+
+
 
   return card
 }
