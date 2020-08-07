@@ -23,9 +23,7 @@
 
 axios.get('https://lambda-times-api.herokuapp.com/articles')
   .then(response => {
-
     cardMaker(response.data)
-
   })
   .catch(err => {
     console.log(err)
@@ -39,20 +37,27 @@ function cardMaker(articleObj) {
   const img = document.createElement('img');
   const authorName = document.createElement('span');
 
-  const articlesArr = Object.values(articleObj.articles)
-
+  const articlesArr = Object.values(articleObj.articles);
   articlesArr.forEach(topic => {
-    topic.map(key => {
-      debugger
+    topic.forEach(key => {
 
       headLine.textContent = key.headline
       img.src = key.authorPhoto
-      authorName.textContent = key.authorName
+      authorName.textContent = `By ${key.authorName}`
     })
   })
 
-  card.appendChild(card)
+  card.classList.add('card');
+  headLine.classList.add('headline');
+  author.classList.add('author');
+  imgContainer.classList.add('img-container')
 
+  card.appendChild(headLine)
+  card.appendChild(author)
+  author.appendChild(imgContainer)
+
+  imgContainer.appendChild(img)
+  author.appendChild(authorName)
 
   const cardcontainer = document.querySelector('.cards-container')
   cardcontainer.appendChild(card)
