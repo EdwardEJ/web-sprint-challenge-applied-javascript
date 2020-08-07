@@ -23,13 +23,19 @@
 
 axios.get('https://lambda-times-api.herokuapp.com/articles')
   .then(response => {
-    cardMaker(response.data)
+    const articlesArr = Object.values(response.data.articles)
+    articlesArr.forEach(el => {
+      el.forEach(item => {
+        const article = cardMaker(item)
+        document.querySelector('.cards-container').appendChild(article)
+      })
+    })
   })
   .catch(err => {
     console.log(err)
   })
 
-function cardMaker(articleObj) {
+function cardMaker(data) {
   const card = document.createElement('div');
   const headLine = document.createElement('div');
   const author = document.createElement('div');
@@ -37,20 +43,16 @@ function cardMaker(articleObj) {
   const img = document.createElement('img');
   const authorName = document.createElement('span');
 
-  const articlesArr = Object.values(articleObj.articles);
-  articlesArr.forEach(topic => {
-    topic.forEach(key => {
+  // const articlesArr = Object.values(articleObj.articles);
+  // articlesArr.forEach(topic => {
+  //   topic.forEach(key => {
 
-      headLine.textContent = key.headline
-      img.src = key.authorPhoto
-      authorName.textContent = `By ${key.authorName}`
+  //   })
+  // })
 
-      card.addEventListener('click', (e) => {
-        console.log(key.headline)
-        event.stopImmediatePropagation()
-      })
-    })
-  })
+  headLine.textContent = data.headline
+  img.src = data.authorPhoto
+  authorName.textContent = `By ${data.authorName}`
 
   card.classList.add('card');
   headLine.classList.add('headline');
@@ -66,7 +68,10 @@ function cardMaker(articleObj) {
   const cardcontainer = document.querySelector('.cards-container')
   cardcontainer.appendChild(card)
 
-
+  card.addEventListener('click', (e) => {
+    console.log(headLine.innerText)
+    event.stopImmediatePropagation
+  })
 
   return card
 }
