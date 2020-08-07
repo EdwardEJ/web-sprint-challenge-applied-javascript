@@ -12,27 +12,27 @@
 
 
 
-// axios.get('https://lambda-times-api.herokuapp.com/topics')
-//   .then(response => {
-//     const topicsArray = response.data.topics
+axios.get('https://lambda-times-api.herokuapp.com/topics')
+  .then(response => {
+    const topicsArray = response.data.topics
 
-//     topicsArray.forEach(topic => {
-//       topicMaker(topic)
-//     })
-//   })
-//   .catch(err => {
-//     console.log(err)
-//   })
+    topicsArray.forEach(topic => {
+      topicMaker(topic)
+    })
+  })
+  .catch(err => {
+    console.log(err)
+  })
 
-// function topicMaker(topic) {
-//   const tab = document.createElement('div')
+function topicMaker(topic) {
+  const tab = document.createElement('div')
 
-//   tab.textContent = topic;
-//   tab.classList.add('tab')
+  tab.textContent = topic;
+  tab.classList.add('tab')
 
-//   const topics = document.querySelector('.topics')
-//   topics.appendChild(tab)
+  const topics = document.querySelector('.topics')
+  topics.appendChild(tab)
 
-//   return tab
+  return tab
 
-// }
+}
